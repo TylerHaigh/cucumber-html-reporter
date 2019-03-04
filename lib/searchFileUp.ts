@@ -1,9 +1,15 @@
-'use strict';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
-var fs = require('fs-extra');
-var path = require('path');
+function exists(filePath: string) {
+    try {
+        return fs.statSync(filePath).isFile();
+    } catch (err) {
+        return false;
+    }
+}
 
-function searchFileUp(fileName) {
+export function searchFileUp(fileName: string) {
     var pathParts = process.cwd().split(path.sep);
 
     var filePath = pathParts.concat([fileName]).join(path.sep);
@@ -15,13 +21,3 @@ function searchFileUp(fileName) {
 
     return filePath;
 }
-
-function exists(filePath) {
-    try {
-        return fs.statSync(filePath).isFile();
-    } catch (err) {
-        return false;
-    }
-}
-
-module.exports = searchFileUp;

@@ -1,7 +1,5 @@
-'use strict';
-
-var _ = require('lodash');
-var path = require('path');
+import * as _ from 'lodash';
+import * as path from 'path';
 
 /**
  * hierarchyReporter.js
@@ -16,7 +14,7 @@ var path = require('path');
  * We will later use this as the basis from which to construct the feature hierarchy--
  * the basedir prefix needs to be removed since it is not important.
  */
-var getBaseDir = function (suite) {
+export function getBaseDir(suite) {
     var baseDir = [];
     suite.features.forEach(function (feature) {
         var uriParts = feature.uri.split(path.sep);
@@ -42,7 +40,7 @@ var getBaseDir = function (suite) {
  * @param baseDir:  '/home/cstrong/myproj/test/features'
  * @returns [ 'authentication', 'login' ]
  */
-var getFeatureHierarchy = function (featureUri, baseDir) {
+export function getFeatureHierarchy(featureUri, baseDir) {
     var noBaseDir = featureUri.slice(baseDir.length + 1);
     var noBadChars = noBaseDir.split('=').join('_');
     var featureDirs = noBadChars.split(path.sep);
@@ -53,6 +51,29 @@ var getFeatureHierarchy = function (featureUri, baseDir) {
     return featureDirs;
 };
 
+/*
+    Create a new sub-suite correspond to a folder name.  The suite will contain the features that are defined
+    within that folder, and/or sub-suites corresponding to any sub-folders that themselves may contain features.
+    A sub-suite has a reference to its parent suite, so that we can easily aggregate statistics of passed and failed
+    tests up the hierarchy.
+*/
+function newSubSuite(name, parent) {
+    return {
+        name: {
+            plain: name,
+            sanitized: name
+        },
+        passed: 0,
+        failed: 0,
+        ambiguous: 0,
+        parent: parent,
+        features: [],
+        suites: []
+    };
+}
+
+
+
 /**
  * Given the top-level suite and the hierarchy to build, recursively create the hierarchy
  * of sub-suites (if needed) and return the lowest level sub-suite.
@@ -61,28 +82,7 @@ var getFeatureHierarchy = function (featureUri, baseDir) {
  * @param hierarchy  e.g. [ 'authentication', 'login' ]
  * @returns suite object or null if there is no hierarchy
  */
-var findOrCreateSubSuite = function (suite, hierarchy) {
-
-    /*
-     Create a new sub-suite correspond to a folder name.  The suite will contain the features that are defined
-     within that folder, and/or sub-suites corresponding to any sub-folders that themselves may contain features.
-     A sub-suite has a reference to its parent suite, so that we can easily aggregate statistics of passed and failed
-     tests up the hierarchy.
-     */
-    function newSubSuite(name, parent) {
-        return {
-            name: {
-                plain: name,
-                sanitized: name
-            },
-            passed: 0,
-            failed: 0,
-            ambiguous: 0,
-            parent: parent,
-            features: [],
-            suites: []
-        };
-    }
+export function findOrCreateSubSuite(suite, hierarchy) {
 
     if (hierarchy.length < 1) {
         return null;
@@ -113,16 +113,9 @@ var findOrCreateSubSuite = function (suite, hierarchy) {
  * @param subSuite
  * @param attrName ('passed', 'failed', or 'ambiguous')
  */
-var recursivelyIncrementStat = function (subSuite, attrName) {
+export function recursivelyIncrementStat(subSuite, attrName) {
     subSuite[attrName] = subSuite[attrName] + 1;
     if (subSuite.parent) {
         recursivelyIncrementStat(subSuite.parent, attrName);
     }
-};
-
-module.exports = {
-    getBaseDir: getBaseDir,
-    getFeatureHierarchy: getFeatureHierarchy,
-    findOrCreateSubSuite: findOrCreateSubSuite,
-    recursivelyIncrementStat: recursivelyIncrementStat
 };
