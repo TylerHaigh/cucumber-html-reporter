@@ -6,7 +6,7 @@ function drawChart(chartData) {
         ['Pending', chartData.pending],
         ['Undefined', chartData.notdefined],
         ['Ambiguous', chartData.ambiguous],
-        ['Skipped', chartData.skipped]        
+        ['Skipped', chartData.skipped]
     ]);
 
     var total = chartData.passed + chartData.failed + (chartData.pending || 0) + (chartData.notdefined || 0) + (chartData.ambiguous || 0) + (chartData.skipped || 0);

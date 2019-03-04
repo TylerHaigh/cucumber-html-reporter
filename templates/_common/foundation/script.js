@@ -27,9 +27,9 @@ window.onload = function() {
     buildTimeElem.innerHTML = 'Built ' + moment(buildTimeElem.innerHTML).fromNow();
 };
 
-/* 
- Credit to John Resig for this function 
- taken from Pro JavaScript techniques 
+/*
+ Credit to John Resig for this function
+ taken from Pro JavaScript techniques
  */
 function nextElement(elem) {
     do {

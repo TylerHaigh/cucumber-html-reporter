@@ -193,11 +193,11 @@ Applicable if `storeScreenshots=true`. Relative path for directory where screens
 
 ```js
 {
-   ...
-   ...
-   output: '/report/cucumber_report.html',
-   screenshotsDirectory: 'screenshots/',
-   storeScreenshots: true
+  ...
+  ...
+  output: '/report/cucumber_report.html',
+  screenshotsDirectory: 'screenshots/',
+  storeScreenshots: true
 }
 ```
 
@@ -301,6 +301,3 @@ Credit to the developers of [grunt-cucumberjs][1] for developing pretty HTML rep
 [10]: https://github.com/gkushang/cucumber-html-reporter/blob/develop/CHANGELOG.md
 [11]: https://github.com/gkushang/cucumber-html-reporter/blob/develop/samples/snapshots.md#with-metadata
 [twitter]: https://twitter.com/g_kushang
-
-
-

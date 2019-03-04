@@ -17,7 +17,7 @@
             <% } else if(_.some(element.steps, function(step){ return step.result && step.result.status === 'undefined'; })) {  %>
               <span class="label right">Undefined</span>
             <% } else if(_.some(element.steps, function(step){ return step.result && step.result.status === 'pending'; })) {  %>
-               <span class="label right">Pending</span>
+              <span class="label right">Pending</span>
             <% } else if(_.every(element.steps, function(step){ return step.result && step.result.status === 'passed'; })) { %>
               <span class="success label right">Passed</span>
             <% } %>
@@ -29,7 +29,7 @@
 
               <p class="subheader">
                 <span class="text"><span class="keyword highlight"><%= step.keyword %></span> <%- step.name %></span>
-		<% if(step.result) { %>
+    <% if(step.result) { %>
                 <small>
                 <% if(step.result.status === 'failed') { %>
                   <span class="alert label right">Failed</span>
@@ -45,20 +45,20 @@
                   <span class="success label right">Passed</span>
                 <% } %>
                 </small>
-		<% } %>
+    <% } %>
 
         <% if (step.text) { %>
-             <a href="#info<%= featureIndex %>_<%= scenarioIndex %><%= stepIndex %>" data-toggle="collapse">+ Show Info</a>
-             <div id="info<%= featureIndex %>_<%= scenarioIndex %><%= stepIndex %>" class="collapse">
-               <%= step.text %>
-             </div>
+            <a href="#info<%= featureIndex %>_<%= scenarioIndex %><%= stepIndex %>" data-toggle="collapse">+ Show Info</a>
+            <div id="info<%= featureIndex %>_<%= scenarioIndex %><%= stepIndex %>" class="collapse">
+              <%= step.text %>
+            </div>
         <% } %>
 
-		 <% if (step.image) { %>
-                 <a class="toggle" href="#">Screenshot -</a>
+    <% if (step.image) { %>
+                <a class="toggle" href="#">Screenshot -</a>
                   <a class="screenshot" href="<%= step.image %>">
                       <img class="screenshot" style="height:100%;width:100%" id="my_images" src="<%= step.image %>"/>
-                   </a>
+                  </a>
           <% } %>
               </p>
 
@@ -75,4 +75,4 @@
     <hr />
   </div>
 </div>
-<% }); %> 
+<% }); %>
