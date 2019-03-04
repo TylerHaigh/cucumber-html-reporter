@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "no-unsafe-any": true,
+        "no-magic-numbers": true,
+        "no-any": true,
+        "prefer-const": true,
+        "semicolon": true
+    }
+
+}
